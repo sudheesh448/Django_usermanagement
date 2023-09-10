@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+</head>
+
+
+<body>
+
+  
+  <div class="container-fluid vh-100 bg-dark m-0" style="text-align: center;">
+    <h1 class="text-light">Admin Panel</h1>
+    
+    <br>
+    <div class="d-flex justify-content-between"> 
+      <a href="{%url 'create'%}"><button class="btn btn-success btn-outline-light" id="new3">Add Member</button></a>
+      <form action="search" method="get" class="d-flex">
+        <input class="form-control me-2" type="text" name="query" placeholder="search" aria-label="search">
+        <button class="btn btn-outline-succes btn btn-primary" type="submit">search</button>
+    </form>
+      
+      <a href='/adminlogout'><button class="btn btn-warning btn-outline-light" id="new3">Logout</button></a>
+    </div>
+    <hr class="text-white">
+    <div >
+     
+       <br>
+       <br>
+        
+
+        <table class="table">
+          <thead class="thead-dark">
+            <tr class="text-white">
+              <th scope="col">User Name</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Action</th>
+              <th scope="col"> </th>
+            </tr>
+          </thead>
+          <tbody class="text-white">
+            {% if details %}
+
+            {% for x in details %}
+            <tr>  
+             
+              <td>
+                {% if user.is_superuser %}
+                <h6>{{x.username}} </h6>
+              </td>
+              {%endif%}
+              <td><h6>{{x.first_name}} {{x.last_name}}</h6></td>
+              <td><h6>{{x.email}}</h6></td>
+
+              <td>
+                <a href="update/{{x.id}}"><button id='up' class="btn btn-success btn-outline-light">update</button></a>
+              </td>
+
+              
+              <td>
+                <a href="delete/{{x.id}}"><button id="del" class="btn btn-danger btn-outline-light">delete</button></a>
+                
+              </td>
+            </tr>
+            {% endfor %}
+
+            {% else %}
+            <h5 class="text-white" >No such user</h5>
+
+            {% endif %}
+          </tbody>
+        </table>
+        <a href="{%url 'home' %}"><button type="button" class="btn btn-info">Home Page</button></a>
+        <a href="{%url 'dashboard' %}"><button type="button" class="btn btn-info">Admin Dash Board</button></a>
+        
+    </div>
+</body>
+
+</html>

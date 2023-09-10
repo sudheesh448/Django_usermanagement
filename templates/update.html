@@ -1,0 +1,62 @@
+{%extends 'base1.html' %}
+
+{% block title%}
+Update Page
+{% endblock %}
+
+{% block body_content %}
+<section class="bg-dark">
+    <div class="b pt-3 px-3">
+        <a href="{%url 'dashboard'%}"><button class="btn btn-outline-light btn-lg px-5" >Back</button></a>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="card col-5 p-5">
+                <h2 class="text-center">Update User</h2>
+                {% if messages %}
+    
+                {% for message in messages %}
+    
+    
+    
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <strong>{{message}}</strong>
+                </div>
+                {% endfor %}
+                {%endif%}
+    
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="" class="form-label">Username : </label>
+                        <input type="text" name="username" id="" class="form-control" value="{{user.username}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">First Name : </label>
+                        <input type="text" name="first_name" id="" class="form-control" value="{{user.first_name}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Last Name : </label>
+                        <input type="text" name="last_name" id="" class="form-control" value="{{user.last_name}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Email : </label>
+                        <input type="text" name="email" id="" class="form-control" value="{{user.email}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">New Password : </label>    
+                        <input type="password" name="password" id="" class="form-control">
+                    </div>
+    
+                    <div class="d-grid ">
+                     <a href="{%url 'update' user.id %}"><button class="btn btn-success btn-lg" type="submit">Update</button></a>   
+                    </div>
+                </form>
+            </div>
+        </div>
+    
+    </div>
+</section>
+{%endblock%}

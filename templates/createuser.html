@@ -1,0 +1,80 @@
+{% extends 'base1.html' %}
+{% block  title %}
+Create_User
+{% endblock  %}
+{% block body_content %}
+<style>
+body{
+    background-color: black;
+}
+.usercreat{
+    background-color: rgba(0, 0, 0, 0.338)!important;
+    border-radius: 2%;
+}
+.b{
+    text-align: right;
+}
+</style>
+<section>
+    
+<div class="b pt-3 px-3">
+    <a href="{%url 'dashboard'%}"><button class="btn btn-outline-light btn-lg px-5" >Back</button></a></div>
+<div class="container ">
+    <div class="row justify-content-center mt-5">
+        <div class="usercreat border border-radius-3 card col-5 p-4 text-white">
+            {% for message in messages%}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>Message:</strong> {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+         </button>
+        </div>
+        {% endfor %} 
+            <h2 class="text-center">Create User</h2>
+           
+
+            <form action="{% url 'create' %}" method="post">
+                {% csrf_token %}
+                
+
+                   
+                <div class="mb-2">
+                    <label for="" class="form-label">Username : </label>
+                    <input type="text" name="username" id="" class="form-control bg-transparent text-white" required>
+                </div>
+                <div class="mb-2">
+                    <label for="" class="form-label">First Name : </label>
+                    <input type="text" name="first_name" id="" class="form-control bg-transparent text-white" required>
+                </div>
+                <div class="mb-2">
+                    <label for="" class="form-label">Last Name : </label>
+                    <input type="text" name="last_name" id="" class="form-control bg-transparent text-white">
+                </div>
+                <div class="mb-2">
+                    <label for="" class="form-label">Email : </label>
+                    <input type="email" name="email" id="" class="form-control bg-transparent text-white">
+                </div>
+                <div class="mb-2">
+                    <label for="" class="form-label">Create Password : </label>
+                    <input type="password" name="password1" id="" class="form-control bg-transparent text-white" required>
+                </div>
+
+                <div class="mb-2">
+                    <label for="" class="form-label">Confirm Password : </label>
+                    <input type="password" name="password2" id="" class="form-control bg-transparent text-white" required>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input text-white" type="checkbox" id="is_superuser" value="checked" name="is_superuser">
+                  <label class="form-check-label">
+                    Super User
+                  </label>
+                </div>
+
+                <div class="d-grid ">
+                    <button class="btn btn-success btn-lg" type="submit">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock  %}

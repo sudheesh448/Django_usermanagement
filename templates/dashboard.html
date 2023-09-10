@@ -1,0 +1,122 @@
+{%extends 'base1.html' %}
+
+{% block title%}
+Dashboard_Page
+{% endblock %}
+
+{% block body_content %}
+<section >
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark ps-5 pe-5 ">
+            
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation"></button>
+            <div class="collapse navbar-collapse  " id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0 ">
+
+                    <li class="nav-item"><a class="nav-link btn btn-success  active" href="{%url 'create'%}">New User</a> </li>
+
+                </ul>
+
+                
+                <a class="navbar-brand  " href="#">Admin Dashboard</a>
+
+                <form action="search" method="get" class="d-flex">
+                    <input class="form-control me-2" type="text" name="query" placeholder="search" aria-label="search" href="{%url 'search' %}">
+                    <a href="{%url 'search' %}"><button class="btn btn-outline-succes bg-light" type="submit">search</button></a>
+                </form>
+                <h1> . </h1>
+                
+                    <a href="{%url 'home' %}"><button type="button" class="btn btn-info">Home Page</button></a>
+                    <h1> . </h1>
+                    <a href="{%url 'admin_logout'%}"  onclick= "return confirm('Are you sure you want to logout')" ><button class="btn btn-warning my-sm-0" type="button">Logout</button></a>
+                
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover align-middle ">
+                            <thead class="table-success">
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Type</th>
+                                    <th>Active</th>
+                                    <th>Name</th>
+                                  
+                                    <th>Email</th>
+                                    <th>Last Login</th>
+                                    <th>Joined</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                            
+                                
+                                {% for user in users %}
+                            
+                                <tr class="text-white">
+                                    
+                                    
+                                    <td> {{user.username}}</td>
+                                    
+                                
+                                    {% if user.is_superuser %}
+                                    <td><h6>Admin</h6></td>
+
+                                    {% else %}
+                                    <td><h6>User</h6></td>
+
+                                    {% endif %}
+
+
+                                    {% if user.is_active %}
+                                    <td><i class="fa-solid fa-circle" style="color: #00ff11;"></i></td>
+
+                                    {% else %}
+                                    <td><i class="fa-solid fa-circle" style="color: #d4d4d4;"></i></td>
+
+                                    {% endif %}
+                                    
+
+
+                                    <td>{{user.first_name}} {{user.last_name}}</td>
+                                    
+                                    <td>{{user.email}}</td>
+                                    
+                                    <td>{{user.last_login}}</td>
+
+                                    <td>{{user.date_joined}}</td>
+
+
+                                    <td>
+                                        <a class="btn btn-primary me-2" href="{% url 'update' user.id%}" role="button">Update</a>
+                                        <a class="btn btn-danger" href="{% url 'delete' user.id %}" onclick= "return confirm('Are you sure you want to delete this item')" role="button">Delete</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            
+        
+                                </tr>
+                            </tbody>
+                            <tfoot>
+        
+                            </tfoot>
+                        </table>
+                    </div>
+        
+                </div>
+            </div>
+        </div>
+        {% for message in messages%}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>Message:</strong> {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+         </button>
+        </div>
+        {% endfor %} 
+    </header>
+</section>
+{%endblock%}
